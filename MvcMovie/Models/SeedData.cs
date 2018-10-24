@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Linq;
 
 namespace MvcMovie.Models
 {
@@ -24,17 +22,17 @@ namespace MvcMovie.Models
                      new Movie
                      {
                          Title = "When Harry Met Sally",
-                         Rating = "R",
                          ReleaseDate = DateTime.Parse("1989-1-11"),
                          Genre = "Romantic Comedy",
-                         Price = 7.99M
+                         Price = 7.99M,
+                         Rating = "R"
                      },
 
                      new Movie
                      {
                          Title = "Ghostbusters ",
-                         Rating = "R",
                          ReleaseDate = DateTime.Parse("1984-3-13"),
+                         Rating = "PG",
                          Genre = "Comedy",
                          Price = 8.99M
                      },
@@ -42,8 +40,8 @@ namespace MvcMovie.Models
                      new Movie
                      {
                          Title = "Ghostbusters 2",
-                         Rating = "R",
                          ReleaseDate = DateTime.Parse("1986-2-23"),
+                         Rating = "PG",
                          Genre = "Comedy",
                          Price = 9.99M
                      },
@@ -51,8 +49,8 @@ namespace MvcMovie.Models
                    new Movie
                    {
                        Title = "Rio Bravo",
-                       Rating = "R",
                        ReleaseDate = DateTime.Parse("1959-4-15"),
+                       Rating = "NR",
                        Genre = "Western",
                        Price = 3.99M
                    }

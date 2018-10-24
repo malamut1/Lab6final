@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -21,7 +22,6 @@ namespace MvcMovie.Controllers
         // GET: Movies
         public async Task<IActionResult> Index(string movieGenre, string searchString)
         {
-            // Use LINQ to get list of genres.
             IQueryable<string> genreQuery = from m in _context.Movie
                                             orderby m.Genre
                                             select m.Genre;
@@ -46,6 +46,12 @@ namespace MvcMovie.Controllers
             return View(movieGenreVM);
         }
 
+        [HttpPost]
+        public string Index(string searchString, bool notUsed)
+        {
+            return "From [HttpPost]Index: filter on " + searchString;
+        }
+
         // GET: Movies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -55,7 +61,7 @@ namespace MvcMovie.Controllers
             }
 
             var movie = await _context.Movie
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.ID == id);
             if (movie == null)
             {
                 return NotFound();
@@ -94,7 +100,7 @@ namespace MvcMovie.Controllers
                 return NotFound();
             }
 
-            var movie = await _context.Movie.SingleOrDefaultAsync(m => m.ID == id);
+            var movie = await _context.Movie.FindAsync(id);
             if (movie == null)
             {
                 return NotFound();
@@ -107,7 +113,7 @@ namespace MvcMovie.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ReleaseDate,Genre,Price")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
         {
             if (id != movie.ID)
             {
@@ -146,7 +152,7 @@ namespace MvcMovie.Controllers
             }
 
             var movie = await _context.Movie
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.ID == id);
             if (movie == null)
             {
                 return NotFound();
@@ -160,7 +166,7 @@ namespace MvcMovie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var movie = await _context.Movie.SingleOrDefaultAsync(m => m.ID == id);
+            var movie = await _context.Movie.FindAsync(id);
             _context.Movie.Remove(movie);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -169,6 +175,16 @@ namespace MvcMovie.Controllers
         private bool MovieExists(int id)
         {
             return _context.Movie.Any(e => e.ID == id);
+        }
+
+        public IActionResult GetFromIMDB(string searchString)
+        {
+            HttpClient client = new HttpClient();
+
+            string url = "http://www.omdbapi.com/?t=";
+
+            //try returning converted movie object back to create
+            return View(searchString);
         }
     }
 }
