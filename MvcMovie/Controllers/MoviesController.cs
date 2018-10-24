@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MvcMovie.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace MvcMovie.Controllers
 {
@@ -177,14 +179,29 @@ namespace MvcMovie.Controllers
             return _context.Movie.Any(e => e.ID == id);
         }
 
-        public IActionResult GetFromIMDB(string searchString)
+        public async Task<IActionResult> GetFromIMDB(string movietitle)
         {
             HttpClient client = new HttpClient();
 
-            string url = "http://www.omdbapi.com/?t=";
+            string url = "http://www.omdbapi.com/?t=" + (string)movietitle + "&apikey=91189b0b";
+            var response = await client.GetAsync(url);
+            var data = await response.Content.ReadAsStringAsync();
+
+            var json = JsonConvert.DeserializeObject(data).ToString();
+            dynamic omdbMovie = JObject.Parse(json);
+
+            //getting first genre in the list
+
+            Movie movie = new Movie
+            {
+                Title = omdbMovie["Title"],
+                ReleaseDate = omdbMovie["Released"],
+                Genre = omdbMovie["Genre"],
+                Rating = omdbMovie["Rated"]
+            };
 
             //try returning converted movie object back to create
-            return View(searchString);
+            return View("Create", movie);
         }
     }
 }
