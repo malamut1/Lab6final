@@ -7,7 +7,7 @@
 <h2>Movie Details</h2>
 <hr />
 <div>
-    
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Title)
@@ -41,10 +41,13 @@
         </dd>
     </dl>
 </div>
+
 <div class="container">
     <img src="@Html.DisplayFor(model => model.Poster)" />
 </div>
+
+<br />
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-primary">Edit</a>
+    <a asp-action="Index" class="btn btn-default">Back to List</a>
 </div>
