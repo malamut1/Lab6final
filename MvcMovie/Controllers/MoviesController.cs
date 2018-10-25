@@ -190,16 +190,19 @@ namespace MvcMovie.Controllers
             var json = JsonConvert.DeserializeObject(data).ToString();
             dynamic omdbMovie = JObject.Parse(json);
 
-            //getting first genre in the list
-
-            Movie movie = new Movie
+            Movie movie = new Movie();
+            try
             {
-                Title = omdbMovie["Title"],
-                ReleaseDate = omdbMovie["Released"],
-                Genre = omdbMovie["Genre"],
-                Rating = omdbMovie["Rated"],
-                Poster = omdbMovie["Poster"]
-            };
+                movie.Title = omdbMovie["Title"];
+                movie.ReleaseDate = omdbMovie["Released"];
+                movie.Genre = omdbMovie["Genre"];
+                movie.Rating = omdbMovie["Rated"];
+                movie.Poster = omdbMovie["Poster"];
+            }
+            catch
+            {
+                return View("Create");
+            }
 
             //try returning converted movie object back to create
             return View("Create", movie);
