@@ -10,7 +10,7 @@ using MvcMovie.Models;
 namespace MvcMovie.Migrations
 {
     [DbContext(typeof(MvcMovieContext))]
-    [Migration("20181014204057_Initial")]
+    [Migration("20181025010533_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,31 +22,31 @@ namespace MvcMovie.Migrations
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("MvcMovie.Models.Movie", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+            {
+                b.Property<int>("ID")
+                    .ValueGeneratedOnAdd()
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Genre")
-                        .IsRequired()
-                        .HasMaxLength(30);
+                b.Property<string>("Genre")
+                    .IsRequired()
+                    .HasMaxLength(30);
 
-                    b.Property<decimal>("Price");
+                b.Property<decimal>("Price");
 
-                    b.Property<string>("Rating")
-                        .IsRequired()
-                        .HasMaxLength(5);
+                b.Property<string>("Rating")
+                    .IsRequired()
+                    .HasMaxLength(5);
 
-                    b.Property<DateTime>("ReleaseDate");
+                b.Property<DateTime>("ReleaseDate");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(60);
+                b.Property<string>("Title")
+                    .IsRequired()
+                    .HasMaxLength(60);
 
-                    b.HasKey("ID");
+                b.HasKey("ID");
 
-                    b.ToTable("Movie");
-                });
+                b.ToTable("Movie");
+            });
 #pragma warning restore 612, 618
         }
     }

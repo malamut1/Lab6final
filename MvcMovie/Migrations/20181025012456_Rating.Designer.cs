@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MvcMovie.Models;
 
 namespace MvcMovie.Migrations
 {
     [DbContext(typeof(MvcMovieContext))]
-    partial class MvcMovieContextModelSnapshot : ModelSnapshot
+    [Migration("20181025011456_Rating")]
+    partial class Rating
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,8 +29,6 @@ namespace MvcMovie.Migrations
 
                 b.Property<string>("Genre");
 
-                b.Property<string>("Poster");
-
                 b.Property<decimal>("Price")
                     .HasColumnType("decimal(18, 2)");
 
@@ -36,9 +36,7 @@ namespace MvcMovie.Migrations
 
                 b.Property<DateTime>("ReleaseDate");
 
-                b.Property<string>("Title")
-                    .IsRequired()
-                    .HasMaxLength(60);
+                b.Property<string>("Title");
 
                 b.HasKey("ID");
 
