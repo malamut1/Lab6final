@@ -21,9 +21,9 @@ namespace MvcMovie.Controllers
             _context = context;
         }
 
-        // GET: Movies
         public async Task<IActionResult> Index(string movieGenre, string searchString)
         {
+            // Use LINQ to get list of genres.
             IQueryable<string> genreQuery = from m in _context.Movie
                                             orderby m.Genre
                                             select m.Genre;
@@ -42,16 +42,10 @@ namespace MvcMovie.Controllers
             }
 
             var movieGenreVM = new MovieGenreViewModel();
-            movieGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
-            movieGenreVM.movies = await movies.ToListAsync();
+            movieGenreVM.Genres = new SelectList(await genreQuery.Distinct().ToListAsync());
+            movieGenreVM.Movies = await movies.ToListAsync();
 
             return View(movieGenreVM);
-        }
-
-        [HttpPost]
-        public string Index(string searchString, bool notUsed)
-        {
-            return "From [HttpPost]Index: filter on " + searchString;
         }
 
         // GET: Movies/Details/5
@@ -179,33 +173,34 @@ namespace MvcMovie.Controllers
             return _context.Movie.Any(e => e.ID == id);
         }
 
-        public async Task<IActionResult> GetFromIMDB(string movietitle)
+
+        public async Task<IActionResult> RetrieveData(string title)
         {
             HttpClient client = new HttpClient();
 
-            string url = "http://www.omdbapi.com/?t=" + (string)movietitle + "&apikey=91189b0b";
+            string url = "http://www.omdbapi.com/?t=" + (string)title + "&apikey=91189b0b";
             var response = await client.GetAsync(url);
             var data = await response.Content.ReadAsStringAsync();
 
             var json = JsonConvert.DeserializeObject(data).ToString();
             dynamic omdbMovie = JObject.Parse(json);
 
-            Movie movie = new Movie();
+            Movie m = new Movie();
             try
             {
-                movie.Title = omdbMovie["Title"];
-                movie.ReleaseDate = omdbMovie["Released"];
-                movie.Genre = omdbMovie["Genre"];
-                movie.Rating = omdbMovie["Rated"];
-                movie.Poster = omdbMovie["Poster"];
+                m.Title = omdbMovie["Title"];
+                m.ReleaseDate = omdbMovie["Released"];
+                m.Genre = omdbMovie["Genre"];
+                m.Rating = omdbMovie["Rated"];
+                m.Poster = omdbMovie["Poster"];
+
             }
             catch
             {
                 return View("Create");
             }
 
-            //try returning converted movie object back to create
-            return View("Create", movie);
+            return View("Create", m);
         }
     }
 }
