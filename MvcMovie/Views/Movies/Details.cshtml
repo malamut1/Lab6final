@@ -1,13 +1,11 @@
 ﻿@model MvcMovie.Models.Movie
-
 @{
     ViewData["Title"] = "Details";
 }
-
-<h2>Movie Details</h2>
-<hr />
+<h2>Details</h2>
 <div>
-
+    <h4>Movie</h4>
+    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Title)
@@ -34,20 +32,38 @@
             @Html.DisplayFor(model => model.Price)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Rating)
+            @Html.DisplayNameFor(model => model.Reviewer)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Rating)
+            @Html.DisplayFor(model => model.Reviewer)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Comment)
         </dd>
     </dl>
 </div>
-
 <div class="container">
     <img src="@Html.DisplayFor(model => model.Poster)" />
+    @ViewBag.Comment
+</div>
+<div>
+
+    <a asp-action="Edit" asp-route-id="@Model.ID"><input type="submit" class="btn btn-info" value="Edit" /></a>
+    <a asp-action="Index"><input type="submit" value="Back to List" /></a>
 </div>
 
-<br />
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-primary">Edit</a>
-    <a asp-action="Index" class="btn btn-default">Back to List</a>
-</div>
+<h4 style="font-weight:bolder">Reviews</h4>
+
+<h2>@ViewBag.Comment</h2>
+<h2>@ViewBag.Author</h2>
+
+<h2>@Model.Reviewer</h2>
+<h2>@Model.Comment</h2>
+
+
+
+
+<a asp-action="WriteReview" asp-route-id="@Model.ID"><input type="submit" class="btn btn-info" value="✎Write a Review" /></a>
