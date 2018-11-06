@@ -15,56 +15,35 @@ namespace MvcMovie.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("MvcMovie.Models.Movie", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+            {
+                b.Property<int>("ID")
+                    .ValueGeneratedOnAdd()
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Genre");
+                b.Property<string>("Genre");
 
-                    b.Property<string>("Poster");
+                b.Property<string>("Poster");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18, 2)");
+                b.Property<decimal>("Price")
+                    .HasColumnType("decimal(18, 2)");
 
-                    b.Property<string>("Rating");
+                b.Property<string>("Rating");
 
-                    b.Property<DateTime>("ReleaseDate");
+                b.Property<DateTime>("ReleaseDate");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(60);
+                b.Property<string>("Review");
 
-                    b.HasKey("ID");
+                b.Property<string>("Title");
 
-                    b.ToTable("Movie");
-                });
+                b.HasKey("ID");
 
-            modelBuilder.Entity("MvcMovie.Models.Reviews", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("MovieID");
-
-                    b.Property<string>("MovieReview")
-                        .IsRequired()
-                        .HasMaxLength(100000);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(60);
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Reviews");
-                });
+                b.ToTable("Movie");
+            });
 #pragma warning restore 612, 618
         }
     }

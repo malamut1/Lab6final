@@ -14,7 +14,7 @@ namespace MvcMovie.Models
             {
                 if (context.Movie.Any())
                 {
-                    return;   
+                    return;
                 }
 
                 context.Movie.AddRange(
