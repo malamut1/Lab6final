@@ -7,26 +7,27 @@ namespace MvcMovie.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
-                name: "Review",
-                table: "Movie",
-                newName: "Reviewer");
+                name: "Movie",
+                table: "Review",
+                newName: "MovieTitle");
 
-            migrationBuilder.AddColumn<string>(
-                name: "Comment",
-                table: "Movie",
-                nullable: true);
+            migrationBuilder.AddColumn<int>(
+                name: "MovieID",
+                table: "Review",
+                nullable: false,
+                defaultValue: 0);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Comment",
-                table: "Movie");
+                name: "MovieID",
+                table: "Review");
 
             migrationBuilder.RenameColumn(
-                name: "Reviewer",
-                table: "Movie",
-                newName: "Review");
+                name: "MovieTitle",
+                table: "Review",
+                newName: "Movie");
         }
     }
 }

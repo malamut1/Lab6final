@@ -4,14 +4,15 @@
     ViewData["Title"] = "Create";
 }
 
-<h2>Add Movie</h2>
+<h2>Create</h2>
 
+<h4>Movie</h4>
 <hr />
 
 <div class="form-group">
     <form class="form-inline" method="get" action="GetFromIMDB">
         <input type="text" name="movietitle" placeholder="Title" />
-        <input type="submit" value="Lookup on IMDB" class="btn btn-primary" />
+        <input type="submit" value="Lookup on IMDB" class="btn btn-info" />
     </form>
 </div><br />
 
@@ -58,15 +59,15 @@
                 <span asp-validation-for="Poster" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Add" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-default">Cancel</a>
-
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
-
         </form>
     </div>
 </div>
 
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
